@@ -3,26 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienes Raíces Puerto Rico | Professional Real Estate Services</title>
+    <title>Freyre Real Estate | Luxury Properties in Puerto Rico</title>
     <style>
         :root {
-            --primary-color: #0066cc;
-            --secondary-color: #f8f9fa;
-            --accent-color: #ffc107;
+            --primary-color: #102847;  /* Dark navy blue - Sotheby's inspired */
+            --secondary-color: #f9f9f9;
+            --accent-color: #c6a87d;   /* Gold accent - Sotheby's inspired */
             --text-color: #333;
-            --light-text: #f8f9fa;
+            --light-text: #f9f9f9;
+            --dark-text: #102847;
+            --border-color: #e0e0e0;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Playfair Display', 'Georgia', serif;
         }
         
         body {
             color: var(--text-color);
             line-height: 1.6;
+            background-color: white;
+            font-size: 16px;
         }
         
         .container {
@@ -32,15 +36,25 @@
             padding: 0 15px;
         }
         
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', 'Georgia', serif;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        
+        p, li, a {
+            font-family: 'Montserrat', 'Arial', sans-serif;
+        }
+        
         /* Header */
         header {
-            background-color: var(--primary-color);
-            color: white;
+            background-color: white;
+            color: var(--dark-text);
             padding: 20px 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         
         nav {
@@ -50,14 +64,13 @@
         }
         
         .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
             text-decoration: none;
+            display: flex;
+            align-items: center;
         }
         
-        .logo span {
-            color: var(--accent-color);
+        .logo img {
+            height: 70px;
         }
         
         .nav-links {
@@ -66,26 +79,32 @@
         }
         
         .nav-links li {
-            margin-left: 20px;
+            margin-left: 30px;
         }
         
         .nav-links a {
-            color: white;
+            color: var(--dark-text);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 400;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
             transition: color 0.3s;
+            padding-bottom: 5px;
+            border-bottom: 1px solid transparent;
         }
         
         .nav-links a:hover {
             color: var(--accent-color);
+            border-bottom: 1px solid var(--accent-color);
         }
         
         /* Hero Section */
         .hero {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1200/600');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/api/placeholder/1200/600');
             background-size: cover;
             background-position: center;
-            height: 80vh;
+            height: 90vh;
             display: flex;
             align-items: center;
             text-align: center;
@@ -98,138 +117,217 @@
         }
         
         .hero h1 {
-            font-size: 48px;
+            font-size: 52px;
             margin-bottom: 20px;
+            letter-spacing: 2px;
+            font-weight: 300;
         }
         
         .hero p {
             font-size: 20px;
             margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 1px;
         }
         
         .btn {
             display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--text-color);
+            background-color: transparent;
+            color: white;
             padding: 12px 30px;
-            border: none;
-            border-radius: 4px;
-            font-size: 18px;
-            font-weight: bold;
+            border: 1px solid white;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             text-decoration: none;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
             cursor: pointer;
         }
         
         .btn:hover {
-            background-color: #e0a800;
+            background-color: white;
+            color: var(--dark-text);
         }
         
-        /* Services Section */
-        .services {
+        .btn-accent {
+            background-color: var(--accent-color);
+            color: var(--dark-text);
+            border: 1px solid var(--accent-color);
+        }
+        
+        .btn-accent:hover {
+            background-color: transparent;
+            color: var(--accent-color);
+        }
+        
+        /* Section styling */
+        section {
             padding: 80px 0;
+        }
+        
+        section:nth-child(even) {
             background-color: var(--secondary-color);
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
         
         .section-title h2 {
             font-size: 36px;
-            color: var(--primary-color);
+            color: var(--dark-text);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
         }
         
+        .section-title p {
+            color: var(--accent-color);
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+            margin: 20px auto 0;
+        }
+        
+        /* Services Section */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 40px;
         }
         
         .service-card {
             background-color: white;
-            border-radius: 8px;
+            border: 1px solid var(--border-color);
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         
         .service-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
         
         .service-img {
-            height: 200px;
-            background-color: #ddd;
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .service-card:hover .service-img img {
+            transform: scale(1.1);
         }
         
         .service-content {
-            padding: 20px;
+            padding: 30px;
         }
         
         .service-content h3 {
-            margin-bottom: 10px;
-            color: var(--primary-color);
+            margin-bottom: 15px;
+            color: var(--dark-text);
+            font-size: 24px;
         }
         
         /* Properties Section */
         .properties {
-            padding: 80px 0;
+            background-color: white;
         }
         
         .properties-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
         }
         
         .property-card {
             background-color: white;
-            border-radius: 8px;
+            border: 1px solid var(--border-color);
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
         
         .property-img {
-            height: 200px;
-            background-color: #ddd;
+            height: 250px;
+            overflow: hidden;
             position: relative;
+        }
+        
+        .property-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .property-card:hover .property-img img {
+            transform: scale(1.1);
         }
         
         .property-price {
             position: absolute;
-            bottom: 0;
-            right: 0;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 8px 12px;
+            bottom: 15px;
+            right: 15px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--dark-text);
+            padding: 10px 15px;
             font-weight: bold;
+            letter-spacing: 1px;
         }
         
         .property-content {
-            padding: 20px;
+            padding: 30px;
         }
         
         .property-content h3 {
             margin-bottom: 10px;
-            color: var(--primary-color);
+            color: var(--dark-text);
+            font-size: 24px;
+        }
+        
+        .property-address {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
         
         .property-details {
             display: flex;
             justify-content: space-between;
-            margin-top: 15px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
         }
         
         .property-details span {
             display: flex;
             align-items: center;
+            font-size: 14px;
+            color: var(--dark-text);
         }
         
         /* About Section */
         .about {
-            padding: 80px 0;
             background-color: var(--secondary-color);
         }
         
@@ -241,51 +339,136 @@
         }
         
         .about-img {
-            height: 400px;
-            background-color: #ddd;
-            border-radius: 8px;
+            height: 500px;
+            overflow: hidden;
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .about-text h3 {
+            color: var(--dark-text);
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        
+        .credentials {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .credential-item {
+            text-align: center;
+        }
+        
+        .credential-item img {
+            width: 80px;
+            margin-bottom: 10px;
         }
         
         /* Testimonials Section */
         .testimonials {
-            padding: 80px 0;
+            background-color: white;
         }
         
         .testimonial-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 40px;
         }
         
         .testimonial-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: var(--secondary-color);
+            padding: 40px;
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: """;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 80px;
+            color: var(--accent-color);
+            opacity: 0.2;
+            font-family: Georgia, serif;
         }
         
         .testimonial-text {
             font-style: italic;
             margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
         }
         
         .testimonial-author {
             font-weight: bold;
+            color: var(--dark-text);
+        }
+        
+        .testimonial-location {
+            font-size: 14px;
+            color: var(--accent-color);
         }
         
         /* Contact Section */
         .contact {
-            padding: 80px 0;
             background-color: var(--secondary-color);
         }
         
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        
+        .contact-info {
+            background-color: var(--dark-text);
+            color: white;
+            padding: 50px;
+        }
+        
+        .contact-info h3 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        
+        .contact-detail {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .contact-detail span {
+            display: block;
+            margin-left: 15px;
+        }
+        
+        .contact-detail strong {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--accent-color);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
         .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
             background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 50px;
         }
         
         .form-group {
@@ -294,39 +477,72 @@
         
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             font-weight: 500;
+            color: var(--dark-text);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 12px;
+            border: 1px solid var(--border-color);
             font-size: 16px;
+            font-family: 'Montserrat', 'Arial', sans-serif;
         }
         
         .form-group textarea {
             height: 150px;
+            resize: vertical;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
         }
         
         /* Footer */
         footer {
-            background-color: var(--primary-color);
+            background-color: var(--dark-text);
             color: white;
-            padding: 50px 0;
+            padding: 80px 0 30px;
         }
         
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 50px;
         }
         
         .footer-col h3 {
+            color: white;
+            margin-bottom: 25px;
+            font-size: 18px;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-col h3::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 30px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-col p {
             margin-bottom: 20px;
-            color: var(--accent-color);
+            font-size: 14px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.7);
         }
         
         .footer-col ul {
@@ -334,42 +550,82 @@
         }
         
         .footer-col ul li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         
         .footer-col a {
-            color: white;
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
             transition: color 0.3s;
+            font-size: 14px;
         }
         
         .footer-col a:hover {
             color: var(--accent-color);
         }
         
+        .footer-logo {
+            display: block;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo img {
+            height: 70px;
+            background-color: white;
+            padding: 8px;
+            border-radius: 4px;
+        }
+        
         .social-links {
             display: flex;
             gap: 15px;
+            margin-top: 20px;
         }
         
         .social-links a {
             display: inline-block;
             height: 40px;
             width: 40px;
-            background-color: rgba(255,255,255,0.1);
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             text-align: center;
             line-height: 40px;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            color: var(--dark-text);
         }
         
         .copyright {
             text-align: center;
             padding-top: 30px;
             margin-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
         }
         
         /* Responsive */
+        @media (max-width: 992px) {
+            .about-content,
+            .contact-container,
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-img {
+                height: 400px;
+                margin-bottom: 30px;
+            }
+            
+            .contact-info,
+            .contact-form {
+                padding: 30px;
+            }
+        }
+        
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 36px;
@@ -379,12 +635,25 @@
                 font-size: 18px;
             }
             
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-            
             .nav-links {
                 display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .service-card,
+            .property-card,
+            .testimonial-card {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            .properties-grid,
+            .services-grid,
+            .testimonial-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -394,14 +663,16 @@
     <header>
         <div class="container">
             <nav>
-                <a href="#" class="logo">Bienes <span>Raíces</span></a>
+                <a href="#" class="logo">
+                    <img src="images/freyre-logo.svg" alt="Freyre Real Estate" height="70">
+                </a>
                 <ul class="nav-links">
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#propiedades">Propiedades</a></li>
-                    <li><a href="#sobre-mi">Sobre Mí</a></li>
-                    <li><a href="#testimonios">Testimonios</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="#inicio">Home</a></li>
+                    <li><a href="#servicios">Services</a></li>
+                    <li><a href="#propiedades">Properties</a></li>
+                    <li><a href="#sobre-mi">About</a></li>
+                    <li><a href="#testimonios">Testimonials</a></li>
+                    <li><a href="#contacto">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -411,9 +682,9 @@
     <section class="hero" id="inicio">
         <div class="container">
             <div class="hero-content">
-                <h1>Experto en Bienes Raíces en Puerto Rico</h1>
-                <p>Ayudando a familias a encontrar su hogar perfecto desde 2000</p>
-                <a href="#contacto" class="btn">Contáctame</a>
+                <h1>Exclusive Properties in Puerto Rico</h1>
+                <p>Curated real estate solutions for the most discerning clients</p>
+                <a href="#propiedades" class="btn">Explore Properties</a>
             </div>
         </div>
     </section>
@@ -422,35 +693,35 @@
     <section class="services" id="servicios">
         <div class="container">
             <div class="section-title">
-                <h2>Mis Servicios</h2>
-                <p>Ofrezco soluciones integrales para tus necesidades inmobiliarias</p>
+                <p>Our Expertise</p>
+                <h2>Professional Services</h2>
             </div>
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-img">
-                        <img src="/api/placeholder/400/200" alt="Venta de propiedades">
+                        <img src="/api/placeholder/400/250" alt="Property Sales">
                     </div>
                     <div class="service-content">
-                        <h3>Venta de Propiedades</h3>
-                        <p>Asistencia profesional en la venta de tu propiedad, maximizando su valor y minimizando el tiempo en el mercado.</p>
+                        <h3>Property Sales</h3>
+                        <p>Expert guidance through the selling process, ensuring optimal market positioning and maximum value for your property with personalized marketing strategies.</p>
                     </div>
                 </div>
                 <div class="service-card">
                     <div class="service-img">
-                        <img src="/api/placeholder/400/200" alt="Compra de propiedades">
+                        <img src="/api/placeholder/400/250" alt="Property Acquisition">
                     </div>
                     <div class="service-content">
-                        <h3>Compra de Propiedades</h3>
-                        <p>Te guío en el proceso de encontrar y adquirir la propiedad ideal que se ajuste a tus necesidades y presupuesto.</p>
+                        <h3>Property Acquisition</h3>
+                        <p>Personalized property search and acquisition services tailored to your specific requirements, preferences, and investment goals in the Puerto Rico market.</p>
                     </div>
                 </div>
                 <div class="service-card">
                     <div class="service-img">
-                        <img src="/api/placeholder/400/200" alt="Asesoría inmobiliaria">
+                        <img src="/api/placeholder/400/250" alt="Investment Advisory">
                     </div>
                     <div class="service-content">
-                        <h3>Asesoría Inmobiliaria</h3>
-                        <p>Consultoría profesional para inversiones inmobiliarias, valoración de propiedades y trámites legales.</p>
+                        <h3>Investment Advisory</h3>
+                        <p>Comprehensive consultation for real estate investments, property valuation, market analysis, and strategic planning to optimize your portfolio performance.</p>
                     </div>
                 </div>
             </div>
@@ -461,51 +732,54 @@
     <section class="properties" id="propiedades">
         <div class="container">
             <div class="section-title">
-                <h2>Propiedades Destacadas</h2>
-                <p>Explora nuestra selección de propiedades exclusivas en Puerto Rico</p>
+                <p>Featured Listings</p>
+                <h2>Exceptional Properties</h2>
             </div>
             <div class="properties-grid">
                 <div class="property-card">
                     <div class="property-img">
-                        <img src="/api/placeholder/400/200" alt="Casa en San Juan">
-                        <div class="property-price">$450,000</div>
+                        <img src="/api/placeholder/400/250" alt="Luxury Residence in San Juan">
+                        <div class="property-price">$1,450,000</div>
                     </div>
                     <div class="property-content">
-                        <h3>Casa de Lujo en San Juan</h3>
-                        <p>Hermosa casa con vista al mar, 4 habitaciones, 3 baños, piscina y jardín.</p>
+                        <h3>Oceanfront Villa</h3>
+                        <div class="property-address">Dorado Beach, Puerto Rico</div>
+                        <p>Magnificent oceanfront villa featuring panoramic views, private beach access, and exquisite architectural details throughout.</p>
                         <div class="property-details">
-                            <span>4 Habitaciones</span>
-                            <span>3 Baños</span>
+                            <span>4 Bedrooms</span>
+                            <span>3 Bathrooms</span>
                             <span>350 m²</span>
                         </div>
                     </div>
                 </div>
                 <div class="property-card">
                     <div class="property-img">
-                        <img src="/api/placeholder/400/200" alt="Apartamento en Condado">
-                        <div class="property-price">$320,000</div>
+                        <img src="/api/placeholder/400/250" alt="Luxury Apartment in Condado">
+                        <div class="property-price">$920,000</div>
                     </div>
                     <div class="property-content">
-                        <h3>Apartamento en Condado</h3>
-                        <p>Moderno apartamento con vista panorámica, 2 habitaciones, 2 baños y terraza.</p>
+                        <h3>Luxury Penthouse</h3>
+                        <div class="property-address">Condado, San Juan</div>
+                        <p>Contemporary penthouse apartment offering spectacular city and ocean views, premium finishes, and access to exclusive amenities.</p>
                         <div class="property-details">
-                            <span>2 Habitaciones</span>
-                            <span>2 Baños</span>
-                            <span>120 m²</span>
+                            <span>2 Bedrooms</span>
+                            <span>2 Bathrooms</span>
+                            <span>180 m²</span>
                         </div>
                     </div>
                 </div>
                 <div class="property-card">
                     <div class="property-img">
-                        <img src="/api/placeholder/400/200" alt="Villa en Dorado">
-                        <div class="property-price">$580,000</div>
+                        <img src="/api/placeholder/400/250" alt="Historical Estate in Old San Juan">
+                        <div class="property-price">$1,850,000</div>
                     </div>
                     <div class="property-content">
-                        <h3>Villa en Dorado</h3>
-                        <p>Espectacular villa con acceso a la playa, 5 habitaciones, 4 baños y piscina privada.</p>
+                        <h3>Historical Estate</h3>
+                        <div class="property-address">Old San Juan</div>
+                        <p>Meticulously restored historical property combining authentic colonial architecture with modern luxury amenities in the heart of Old San Juan.</p>
                         <div class="property-details">
-                            <span>5 Habitaciones</span>
-                            <span>4 Baños</span>
+                            <span>5 Bedrooms</span>
+                            <span>4 Bathrooms</span>
                             <span>420 m²</span>
                         </div>
                     </div>
@@ -518,18 +792,32 @@
     <section class="about" id="sobre-mi">
         <div class="container">
             <div class="section-title">
-                <h2>Sobre Mí</h2>
-                <p>Conoce al profesional detrás de los resultados</p>
+                <p>Our Expertise</p>
+                <h2>About Freyre Real Estate</h2>
             </div>
             <div class="about-content">
                 <div class="about-img">
-                    <img src="/api/placeholder/500/400" alt="Foto del agente">
+                    <img src="/api/placeholder/500/500" alt="Real Estate Professional">
                 </div>
                 <div class="about-text">
-                    <h3>Experto en Bienes Raíces en Puerto Rico</h3>
-                    <p>Con más de 20 años de experiencia en el mercado inmobiliario de Puerto Rico, me he especializado en proporcionar un servicio excepcional a mis clientes, ayudándoles a encontrar la propiedad de sus sueños o a vender su propiedad actual al mejor precio posible.</p>
-                    <p>Mi profundo conocimiento del mercado local, combinado con mi dedicación al servicio al cliente, me ha permitido construir una sólida reputación en la industria. Estoy comprometido a hacer que el proceso de compra o venta de una propiedad sea lo más sencillo y sin estrés posible para mis clientes.</p>
-                    <p>Soy miembro activo de la Asociación de Realtors de Puerto Rico y me mantengo constantemente actualizado sobre las tendencias del mercado y las regulaciones para ofrecer el mejor asesoramiento a mis clientes.</p>
+                    <h3>A Legacy of Excellence in Puerto Rico Real Estate</h3>
+                    <p>At Freyre Real Estate, we provide exceptional service to clients seeking the finest properties in Puerto Rico. Our intimate knowledge of the local market combined with our commitment to discretion and personalized service has established our reputation as a trusted advisor in luxury real estate.</p>
+                    <p>We specialize in connecting discerning clients with extraordinary properties that meet their unique lifestyle needs and investment goals. Our expertise encompasses the most exclusive neighborhoods and developments across Puerto Rico.</p>
+                    <p>As active members of the Puerto Rico Association of Realtors and other prestigious real estate organizations, we maintain the highest standards of professional conduct and stay at the forefront of market trends and regulations.</p>
+                    <div class="credentials">
+                        <div class="credential-item">
+                            <img src="/api/placeholder/80/80" alt="Realtor Association">
+                            <span>Puerto Rico<br>Association of Realtors</span>
+                        </div>
+                        <div class="credential-item">
+                            <img src="/api/placeholder/80/80" alt="Luxury Real Estate">
+                            <span>Certified Luxury<br>Home Specialist</span>
+                        </div>
+                        <div class="credential-item">
+                            <img src="/api/placeholder/80/80" alt="International Real Estate">
+                            <span>International<br>Property Specialist</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -539,32 +827,41 @@
     <section class="testimonials" id="testimonios">
         <div class="container">
             <div class="section-title">
-                <h2>Testimonios</h2>
-                <p>Lo que dicen mis clientes</p>
+                <p>Client Experiences</p>
+                <h2>Testimonials</h2>
             </div>
             <div class="testimonial-grid">
                 <div class="testimonial-card">
                     <div class="testimonial-text">
-                        <p>"El servicio que recibí fue excepcional. Me ayudó a encontrar la casa perfecta para mi familia en tiempo récord. Su conocimiento del mercado y profesionalismo son insuperables."</p>
+                        <p>"Working with Freyre Real Estate was an exceptional experience. Their attention to detail and understanding of our specific requirements resulted in finding the perfect property. Their negotiation skills and market knowledge proved invaluable throughout the entire process."</p>
                     </div>
                     <div class="testimonial-author">
-                        <p>María Rodríguez, San Juan</p>
+                        <p>María Rodríguez</p>
+                    </div>
+                    <div class="testimonial-location">
+                        <p>San Juan, Puerto Rico</p>
                     </div>
                 </div>
                 <div class="testimonial-card">
                     <div class="testimonial-text">
-                        <p>"Vendí mi propiedad en menos de un mes gracias a su estrategia de marketing y red de contactos. El precio que obtuve superó mis expectativas. ¡Altamente recomendado!"</p>
+                        <p>"The marketing strategy developed for my property sale was sophisticated and targeted precisely the right audience. The result was a sale that exceeded my expectations in both timing and price. Their professionalism and communication throughout the process were impeccable."</p>
                     </div>
                     <div class="testimonial-author">
-                        <p>Carlos Méndez, Bayamón</p>
+                        <p>Carlos Méndez</p>
+                    </div>
+                    <div class="testimonial-location">
+                        <p>Bayamón, Puerto Rico</p>
                     </div>
                 </div>
                 <div class="testimonial-card">
                     <div class="testimonial-text">
-                        <p>"Como inversor extranjero, necesitaba un agente confiable que conociera bien el mercado de Puerto Rico. Su experiencia y honestidad fueron fundamentales para hacer una inversión exitosa."</p>
+                        <p>"As an international investor, I required a trustworthy local expert with deep knowledge of the Puerto Rico market. Their insights and guidance were instrumental in making a successful investment. Their attention to my requirements and transparent communication made the entire process seamless."</p>
                     </div>
                     <div class="testimonial-author">
-                        <p>John Smith, Miami</p>
+                        <p>John Smith</p>
+                    </div>
+                    <div class="testimonial-location">
+                        <p>Miami, Florida</p>
                     </div>
                 </div>
             </div>
@@ -575,67 +872,59 @@
     <section class="contact" id="contacto">
         <div class="container">
             <div class="section-title">
-                <h2>Contacto</h2>
-                <p>Estoy a tu disposición para ayudarte</p>
+                <p>Get in Touch</p>
+                <h2>Contact Us</h2>
             </div>
-            <form class="contact-form">
-                <div class="form-group">
-                    <label for="name">Nombre</label>
-                    <input type="text" id="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Correo Electrónico</label>
-                    <input type="email" id="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Teléfono</label>
-                    <input type="tel" id="phone">
-                </div>
-                <div class="form-group">
-                    <label for="message">Mensaje</label>
-                    <textarea id="message" required></textarea>
-                </div>
-                <button type="submit" class="btn">Enviar Mensaje</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-col">
-                    <h3>Bienes Raíces</h3>
-                    <p>Tu socio confiable para todas tus necesidades inmobiliarias en Puerto Rico.</p>
-                    <div class="social-links">
-                        <a href="#" target="_blank">FB</a>
-                        <a href="#" target="_blank">IG</a>
-                        <a href="#" target="_blank">LI</a>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Our Information</h3>
+                    <div class="contact-detail">
+                        <i class="icon">📍</i>
+                        <span>
+                            <strong>Address</strong>
+                            Calle Principal #123, San Juan, Puerto Rico
+                        </span>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="icon">📞</i>
+                        <span>
+                            <strong>Phone</strong>
+                            (123) 456-7890
+                        </span>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="icon">✉️</i>
+                        <span>
+                            <strong>Email</strong>
+                            info@freyrerealestate.com
+                        </span>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="icon">🕒</i>
+                        <span>
+                            <strong>Office Hours</strong>
+                            Monday - Friday: 9AM - 6PM<br>
+                            Saturday: 10AM - 2PM
+                        </span>
                     </div>
                 </div>
-                <div class="footer-col">
-                    <h3>Enlaces Rápidos</h3>
-                    <ul>
-                        <li><a href="#inicio">Inicio</a></li>
-                        <li><a href="#servicios">Servicios</a></li>
-                        <li><a href="#propiedades">Propiedades</a></li>
-                        <li><a href="#sobre-mi">Sobre Mí</a></li>
-                        <li><a href="#testimonios">Testimonios</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h3>Contacto</h3>
-                    <ul>
-                        <li>Teléfono: (123) 456-7890</li>
-                        <li>Email: info@bienesraices.com</li>
-                        <li>Dirección: Calle Principal #123, San Juan, Puerto Rico</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2025 Bienes Raíces Puerto Rico. Todos los derechos reservados.</p>
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
+                <form class="contact-form" netlify>
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="interest">Area of Interest</label>
+                        <input type="text" id="interest" name="interest" placeholder="E.g., Property Purchase, Sale, Investment">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea
