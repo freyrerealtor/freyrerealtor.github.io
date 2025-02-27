@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,13 +48,13 @@
         
         /* Header */
         header {
-            background-color: white;
-            color: var(--dark-text);
+            background-color: #000000; /* Black background like in the screenshot */
+            color: var(--light-text);
             padding: 20px 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         nav {
@@ -70,7 +70,7 @@
         }
         
         .logo img {
-            height: 70px;
+            height: 60px;
         }
         
         .nav-links {
@@ -83,7 +83,7 @@
         }
         
         .nav-links a {
-            color: var(--dark-text);
+            color: white;
             text-decoration: none;
             font-weight: 400;
             text-transform: uppercase;
@@ -99,9 +99,64 @@
             border-bottom: 1px solid var(--accent-color);
         }
         
+        /* Language Switcher */
+        .language-switch {
+            margin-left: 30px;
+            position: relative;
+        }
+        
+        .language-btn {
+            color: white;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 5px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+        
+        .language-btn:hover {
+            border-color: var(--accent-color);
+        }
+        
+        .language-icon {
+            margin-right: 5px;
+        }
+        
+        .language-options {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 3px;
+            width: 150px;
+            z-index: 100;
+            display: none;
+        }
+        
+        .language-options.show {
+            display: block;
+        }
+        
+        .language-options a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: var(--dark-text);
+            transition: background-color 0.3s;
+        }
+        
+        .language-options a:hover {
+            background-color: var(--secondary-color);
+        }
+        
         /* Hero Section */
         .hero {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/api/placeholder/1200/600');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1200/600');
             background-size: cover;
             background-position: center;
             height: 90vh;
@@ -643,6 +698,11 @@
                 display: block;
             }
             
+            .language-switch {
+                margin-left: 0;
+                margin-top: 15px;
+            }
+            
             .service-card,
             .property-card,
             .testimonial-card {
@@ -656,6 +716,66 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Added for the mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .mobile-menu {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: var(--dark-text);
+                padding: 80px 30px 30px;
+                z-index: 200;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .mobile-menu.active {
+                transform: translateX(0);
+            }
+
+            .mobile-menu .nav-links {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mobile-menu .nav-links li {
+                margin: 15px 0;
+            }
+
+            .mobile-menu .close-btn {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: transparent;
+                border: none;
+                color: white;
+                font-size: 24px;
+                cursor: pointer;
+            }
+
+            .mobile-menu .language-switch {
+                margin-top: 30px;
+                display: flex;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -664,27 +784,57 @@
         <div class="container">
             <nav>
                 <a href="#" class="logo">
-                    <img src="images/freyre-logo.svg" alt="Freyre Real Estate" height="70">
+                    <img src="images/Screenshot 2025-02-26 233524.png" alt="Freyre Real Estate">
                 </a>
                 <ul class="nav-links">
-                    <li><a href="#inicio">Home</a></li>
-                    <li><a href="#servicios">Services</a></li>
-                    <li><a href="#propiedades">Properties</a></li>
-                    <li><a href="#sobre-mi">About</a></li>
-                    <li><a href="#testimonios">Testimonials</a></li>
-                    <li><a href="#contacto">Contact</a></li>
+                    <li><a href="#inicio" class="nav-link" data-en="HOME" data-es="INICIO">HOME</a></li>
+                    <li><a href="#servicios" class="nav-link" data-en="SERVICES" data-es="SERVICIOS">SERVICES</a></li>
+                    <li><a href="#propiedades" class="nav-link" data-en="PROPERTIES" data-es="PROPIEDADES">PROPERTIES</a></li>
+                    <li><a href="#sobre-mi" class="nav-link" data-en="ABOUT" data-es="SOBRE NOSOTROS">ABOUT</a></li>
+                    <li><a href="#testimonios" class="nav-link" data-en="TESTIMONIALS" data-es="TESTIMONIOS">TESTIMONIALS</a></li>
+                    <li><a href="#contacto" class="nav-link" data-en="CONTACT" data-es="CONTACTO">CONTACT</a></li>
                 </ul>
+                <div class="language-switch">
+                    <button class="language-btn" id="languageBtn">
+                        <span class="language-icon">🌐</span>
+                        <span class="current-lang">EN</span>
+                    </button>
+                    <div class="language-options" id="languageOptions">
+                        <a href="#" data-lang="en">English</a>
+                        <a href="#" data-lang="es">Español</a>
+                    </div>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
             </nav>
         </div>
     </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-btn" id="closeMenuBtn">✕</button>
+        <ul class="nav-links">
+            <li><a href="#inicio" class="nav-link" data-en="HOME" data-es="INICIO">HOME</a></li>
+            <li><a href="#servicios" class="nav-link" data-en="SERVICES" data-es="SERVICIOS">SERVICES</a></li>
+            <li><a href="#propiedades" class="nav-link" data-en="PROPERTIES" data-es="PROPIEDADES">PROPERTIES</a></li>
+            <li><a href="#sobre-mi" class="nav-link" data-en="ABOUT" data-es="SOBRE NOSOTROS">ABOUT</a></li>
+            <li><a href="#testimonios" class="nav-link" data-en="TESTIMONIALS" data-es="TESTIMONIOS">TESTIMONIALS</a></li>
+            <li><a href="#contacto" class="nav-link" data-en="CONTACT" data-es="CONTACTO">CONTACT</a></li>
+        </ul>
+        <div class="language-switch">
+            <button class="language-btn" id="mobileLanguageBtn">
+                <span class="language-icon">🌐</span>
+                <span class="current-lang">EN</span>
+            </button>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero" id="inicio">
         <div class="container">
             <div class="hero-content">
-                <h1>Exclusive Properties in Puerto Rico</h1>
-                <p>Curated real estate solutions for the most discerning clients</p>
-                <a href="#propiedades" class="btn">Explore Properties</a>
+                <h1 class="translate" data-en="Exclusive Properties in Puerto Rico" data-es="Propiedades Exclusivas en Puerto Rico">Exclusive Properties in Puerto Rico</h1>
+                <p class="translate" data-en="Curated real estate solutions for the most discerning clients" data-es="Soluciones inmobiliarias seleccionadas para los clientes más exigentes">Curated real estate solutions for the most discerning clients</p>
+                <a href="#propiedades" class="btn translate" data-en="EXPLORE PROPERTIES" data-es="EXPLORAR PROPIEDADES">EXPLORE PROPERTIES</a>
             </div>
         </div>
     </section>
@@ -693,8 +843,8 @@
     <section class="services" id="servicios">
         <div class="container">
             <div class="section-title">
-                <p>Our Expertise</p>
-                <h2>Professional Services</h2>
+                <p class="translate" data-en="Our Expertise" data-es="Nuestra Experiencia">Our Expertise</p>
+                <h2 class="translate" data-en="Professional Services" data-es="Servicios Profesionales">Professional Services</h2>
             </div>
             <div class="services-grid">
                 <div class="service-card">
@@ -702,8 +852,8 @@
                         <img src="/api/placeholder/400/250" alt="Property Sales">
                     </div>
                     <div class="service-content">
-                        <h3>Property Sales</h3>
-                        <p>Expert guidance through the selling process, ensuring optimal market positioning and maximum value for your property with personalized marketing strategies.</p>
+                        <h3 class="translate" data-en="Property Sales" data-es="Venta de Propiedades">Property Sales</h3>
+                        <p class="translate" data-en="Expert guidance through the selling process, ensuring optimal market positioning and maximum value for your property with personalized marketing strategies." data-es="Orientación experta durante el proceso de venta, asegurando un posicionamiento óptimo en el mercado y un valor máximo para su propiedad con estrategias de marketing personalizadas.">Expert guidance through the selling process, ensuring optimal market positioning and maximum value for your property with personalized marketing strategies.</p>
                     </div>
                 </div>
                 <div class="service-card">
@@ -711,8 +861,8 @@
                         <img src="/api/placeholder/400/250" alt="Property Acquisition">
                     </div>
                     <div class="service-content">
-                        <h3>Property Acquisition</h3>
-                        <p>Personalized property search and acquisition services tailored to your specific requirements, preferences, and investment goals in the Puerto Rico market.</p>
+                        <h3 class="translate" data-en="Property Acquisition" data-es="Adquisición de Propiedades">Property Acquisition</h3>
+                        <p class="translate" data-en="Personalized property search and acquisition services tailored to your specific requirements, preferences, and investment goals in the Puerto Rico market." data-es="Servicios personalizados de búsqueda y adquisición de propiedades adaptados a sus requisitos específicos, preferencias y objetivos de inversión en el mercado de Puerto Rico.">Personalized property search and acquisition services tailored to your specific requirements, preferences, and investment goals in the Puerto Rico market.</p>
                     </div>
                 </div>
                 <div class="service-card">
@@ -720,8 +870,8 @@
                         <img src="/api/placeholder/400/250" alt="Investment Advisory">
                     </div>
                     <div class="service-content">
-                        <h3>Investment Advisory</h3>
-                        <p>Comprehensive consultation for real estate investments, property valuation, market analysis, and strategic planning to optimize your portfolio performance.</p>
+                        <h3 class="translate" data-en="Investment Advisory" data-es="Asesoría de Inversiones">Investment Advisory</h3>
+                        <p class="translate" data-en="Comprehensive consultation for real estate investments, property valuation, market analysis, and strategic planning to optimize your portfolio performance." data-es="Consultoría integral para inversiones inmobiliarias, valoración de propiedades, análisis de mercado y planificación estratégica para optimizar el rendimiento de su cartera.">Comprehensive consultation for real estate investments, property valuation, market analysis, and strategic planning to optimize your portfolio performance.</p>
                     </div>
                 </div>
             </div>
@@ -732,8 +882,8 @@
     <section class="properties" id="propiedades">
         <div class="container">
             <div class="section-title">
-                <p>Featured Listings</p>
-                <h2>Exceptional Properties</h2>
+                <p class="translate" data-en="Featured Listings" data-es="Propiedades Destacadas">Featured Listings</p>
+                <h2 class="translate" data-en="Exceptional Properties" data-es="Propiedades Excepcionales">Exceptional Properties</h2>
             </div>
             <div class="properties-grid">
                 <div class="property-card">
@@ -742,12 +892,12 @@
                         <div class="property-price">$1,450,000</div>
                     </div>
                     <div class="property-content">
-                        <h3>Oceanfront Villa</h3>
+                        <h3 class="translate" data-en="Oceanfront Villa" data-es="Villa Frente al Mar">Oceanfront Villa</h3>
                         <div class="property-address">Dorado Beach, Puerto Rico</div>
-                        <p>Magnificent oceanfront villa featuring panoramic views, private beach access, and exquisite architectural details throughout.</p>
+                        <p class="translate" data-en="Magnificent oceanfront villa featuring panoramic views, private beach access, and exquisite architectural details throughout." data-es="Magnífica villa frente al mar con vistas panorámicas, acceso privado a la playa y exquisitos detalles arquitectónicos.">Magnificent oceanfront villa featuring panoramic views, private beach access, and exquisite architectural details throughout.</p>
                         <div class="property-details">
-                            <span>4 Bedrooms</span>
-                            <span>3 Bathrooms</span>
+                            <span class="translate" data-en="4 Bedrooms" data-es="4 Habitaciones">4 Bedrooms</span>
+                            <span class="translate" data-en="3 Bathrooms" data-es="3 Baños">3 Bathrooms</span>
                             <span>350 m²</span>
                         </div>
                     </div>
@@ -755,176 +905,4 @@
                 <div class="property-card">
                     <div class="property-img">
                         <img src="/api/placeholder/400/250" alt="Luxury Apartment in Condado">
-                        <div class="property-price">$920,000</div>
-                    </div>
-                    <div class="property-content">
-                        <h3>Luxury Penthouse</h3>
-                        <div class="property-address">Condado, San Juan</div>
-                        <p>Contemporary penthouse apartment offering spectacular city and ocean views, premium finishes, and access to exclusive amenities.</p>
-                        <div class="property-details">
-                            <span>2 Bedrooms</span>
-                            <span>2 Bathrooms</span>
-                            <span>180 m²</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="property-card">
-                    <div class="property-img">
-                        <img src="/api/placeholder/400/250" alt="Historical Estate in Old San Juan">
-                        <div class="property-price">$1,850,000</div>
-                    </div>
-                    <div class="property-content">
-                        <h3>Historical Estate</h3>
-                        <div class="property-address">Old San Juan</div>
-                        <p>Meticulously restored historical property combining authentic colonial architecture with modern luxury amenities in the heart of Old San Juan.</p>
-                        <div class="property-details">
-                            <span>5 Bedrooms</span>
-                            <span>4 Bathrooms</span>
-                            <span>420 m²</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about" id="sobre-mi">
-        <div class="container">
-            <div class="section-title">
-                <p>Our Expertise</p>
-                <h2>About Freyre Real Estate</h2>
-            </div>
-            <div class="about-content">
-                <div class="about-img">
-                    <img src="/api/placeholder/500/500" alt="Real Estate Professional">
-                </div>
-                <div class="about-text">
-                    <h3>A Legacy of Excellence in Puerto Rico Real Estate</h3>
-                    <p>At Freyre Real Estate, we provide exceptional service to clients seeking the finest properties in Puerto Rico. Our intimate knowledge of the local market combined with our commitment to discretion and personalized service has established our reputation as a trusted advisor in luxury real estate.</p>
-                    <p>We specialize in connecting discerning clients with extraordinary properties that meet their unique lifestyle needs and investment goals. Our expertise encompasses the most exclusive neighborhoods and developments across Puerto Rico.</p>
-                    <p>As active members of the Puerto Rico Association of Realtors and other prestigious real estate organizations, we maintain the highest standards of professional conduct and stay at the forefront of market trends and regulations.</p>
-                    <div class="credentials">
-                        <div class="credential-item">
-                            <img src="/api/placeholder/80/80" alt="Realtor Association">
-                            <span>Puerto Rico<br>Association of Realtors</span>
-                        </div>
-                        <div class="credential-item">
-                            <img src="/api/placeholder/80/80" alt="Luxury Real Estate">
-                            <span>Certified Luxury<br>Home Specialist</span>
-                        </div>
-                        <div class="credential-item">
-                            <img src="/api/placeholder/80/80" alt="International Real Estate">
-                            <span>International<br>Property Specialist</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="testimonials" id="testimonios">
-        <div class="container">
-            <div class="section-title">
-                <p>Client Experiences</p>
-                <h2>Testimonials</h2>
-            </div>
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        <p>"Working with Freyre Real Estate was an exceptional experience. Their attention to detail and understanding of our specific requirements resulted in finding the perfect property. Their negotiation skills and market knowledge proved invaluable throughout the entire process."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <p>María Rodríguez</p>
-                    </div>
-                    <div class="testimonial-location">
-                        <p>San Juan, Puerto Rico</p>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        <p>"The marketing strategy developed for my property sale was sophisticated and targeted precisely the right audience. The result was a sale that exceeded my expectations in both timing and price. Their professionalism and communication throughout the process were impeccable."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <p>Carlos Méndez</p>
-                    </div>
-                    <div class="testimonial-location">
-                        <p>Bayamón, Puerto Rico</p>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        <p>"As an international investor, I required a trustworthy local expert with deep knowledge of the Puerto Rico market. Their insights and guidance were instrumental in making a successful investment. Their attention to my requirements and transparent communication made the entire process seamless."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <p>John Smith</p>
-                    </div>
-                    <div class="testimonial-location">
-                        <p>Miami, Florida</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contacto">
-        <div class="container">
-            <div class="section-title">
-                <p>Get in Touch</p>
-                <h2>Contact Us</h2>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3>Our Information</h3>
-                    <div class="contact-detail">
-                        <i class="icon">📍</i>
-                        <span>
-                            <strong>Address</strong>
-                            Calle Principal #123, San Juan, Puerto Rico
-                        </span>
-                    </div>
-                    <div class="contact-detail">
-                        <i class="icon">📞</i>
-                        <span>
-                            <strong>Phone</strong>
-                            (123) 456-7890
-                        </span>
-                    </div>
-                    <div class="contact-detail">
-                        <i class="icon">✉️</i>
-                        <span>
-                            <strong>Email</strong>
-                            info@freyrerealestate.com
-                        </span>
-                    </div>
-                    <div class="contact-detail">
-                        <i class="icon">🕒</i>
-                        <span>
-                            <strong>Office Hours</strong>
-                            Monday - Friday: 9AM - 6PM<br>
-                            Saturday: 10AM - 2PM
-                        </span>
-                    </div>
-                </div>
-                <form class="contact-form" netlify>
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="interest">Area of Interest</label>
-                        <input type="text" id="interest" name="interest" placeholder="E.g., Property Purchase, Sale, Investment">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Your Message</label>
-                        <textarea
+                        <div class="property-price">$920
