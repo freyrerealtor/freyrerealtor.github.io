@@ -1,908 +1,316 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freyre Real Estate | Luxury Properties in Puerto Rico</title>
-    <style>
-        :root {
-            --primary-color: #102847;  /* Dark navy blue - Sotheby's inspired */
-            --secondary-color: #f9f9f9;
-            --accent-color: #c6a87d;   /* Gold accent - Sotheby's inspired */
-            --text-color: #333;
-            --light-text: #f9f9f9;
-            --dark-text: #102847;
-            --border-color: #e0e0e0;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Playfair Display', 'Georgia', serif;
-        }
-        
-        body {
-            color: var(--text-color);
-            line-height: 1.6;
-            background-color: white;
-            font-size: 16px;
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Playfair Display', 'Georgia', serif;
-            font-weight: 400;
-            letter-spacing: 0.5px;
-        }
-        
-        p, li, a {
-            font-family: 'Montserrat', 'Arial', sans-serif;
-        }
-        
-        /* Header */
-        header {
-            background-color: #000000; /* Black background like in the screenshot */
-            color: var(--light-text);
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo img {
-            height: 60px;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 30px;
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 400;
-            text-transform: uppercase;
-            font-size: 14px;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-            padding-bottom: 5px;
-            border-bottom: 1px solid transparent;
-        }
-        
-        .nav-links a:hover {
-            color: var(--accent-color);
-            border-bottom: 1px solid var(--accent-color);
-        }
-        
-        /* Language Switcher */
-        .language-switch {
-            margin-left: 30px;
-            position: relative;
-        }
-        
-        .language-btn {
-            color: white;
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 5px 15px;
-            font-size: 14px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            border-radius: 3px;
-            transition: all 0.3s;
-        }
-        
-        .language-btn:hover {
-            border-color: var(--accent-color);
-        }
-        
-        .language-icon {
-            margin-right: 5px;
-        }
-        
-        .language-options {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: white;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border-radius: 3px;
-            width: 150px;
-            z-index: 100;
-            display: none;
-        }
-        
-        .language-options.show {
-            display: block;
-        }
-        
-        .language-options a {
-            display: block;
-            padding: 10px 15px;
-            text-decoration: none;
-            color: var(--dark-text);
-            transition: background-color 0.3s;
-        }
-        
-        .language-options a:hover {
-            background-color: var(--secondary-color);
-        }
-        
-        /* Hero Section */
-        .hero {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1200/600');
-            background-size: cover;
-            background-position: center;
-            height: 90vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: white;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .hero h1 {
-            font-size: 52px;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-            font-weight: 300;
-        }
-        
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 30px;
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: transparent;
-            color: white;
-            padding: 12px 30px;
-            border: 1px solid white;
-            font-size: 14px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        
-        .btn:hover {
-            background-color: white;
-            color: var(--dark-text);
-        }
-        
-        .btn-accent {
-            background-color: var(--accent-color);
-            color: var(--dark-text);
-            border: 1px solid var(--accent-color);
-        }
-        
-        .btn-accent:hover {
-            background-color: transparent;
-            color: var(--accent-color);
-        }
-        
-        /* Section styling */
-        section {
-            padding: 80px 0;
-        }
-        
-        section:nth-child(even) {
-            background-color: var(--secondary-color);
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 36px;
-            color: var(--dark-text);
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-        
-        .section-title p {
-            color: var(--accent-color);
-            font-size: 16px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        
-        .section-title::after {
-            content: "";
-            display: block;
-            width: 50px;
-            height: 2px;
-            background-color: var(--accent-color);
-            margin: 20px auto 0;
-        }
-        
-        /* Services Section */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .service-card {
-            background-color: white;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        
-        .service-img {
-            height: 250px;
-            overflow: hidden;
-        }
-        
-        .service-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .service-card:hover .service-img img {
-            transform: scale(1.1);
-        }
-        
-        .service-content {
-            padding: 30px;
-        }
-        
-        .service-content h3 {
-            margin-bottom: 15px;
-            color: var(--dark-text);
-            font-size: 24px;
-        }
-        
-        /* Properties Section */
-        .properties {
-            background-color: white;
-        }
-        
-        .properties-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-        }
-        
-        .property-card {
-            background-color: white;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .property-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        
-        .property-img {
-            height: 250px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .property-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .property-card:hover .property-img img {
-            transform: scale(1.1);
-        }
-        
-        .property-price {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-            background-color: rgba(255, 255, 255, 0.9);
-            color: var(--dark-text);
-            padding: 10px 15px;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-        
-        .property-content {
-            padding: 30px;
-        }
-        
-        .property-content h3 {
-            margin-bottom: 10px;
-            color: var(--dark-text);
-            font-size: 24px;
-        }
-        
-        .property-address {
-            color: var(--accent-color);
-            margin-bottom: 15px;
-            font-size: 14px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        
-        .property-details {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-        }
-        
-        .property-details span {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            color: var(--dark-text);
-        }
-        
-        /* About Section */
-        .about {
-            background-color: var(--secondary-color);
-        }
-        
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-        
-        .about-img {
-            height: 500px;
-            overflow: hidden;
-        }
-        
-        .about-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .about-text h3 {
-            color: var(--dark-text);
-            font-size: 30px;
-            margin-bottom: 20px;
-        }
-        
-        .about-text p {
-            margin-bottom: 20px;
-            font-size: 16px;
-            line-height: 1.8;
-        }
-        
-        .credentials {
-            margin-top: 30px;
-            padding-top: 30px;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .credential-item {
-            text-align: center;
-        }
-        
-        .credential-item img {
-            width: 80px;
-            margin-bottom: 10px;
-        }
-        
-        /* Testimonials Section */
-        .testimonials {
-            background-color: white;
-        }
-        
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .testimonial-card {
-            background-color: var(--secondary-color);
-            padding: 40px;
-            position: relative;
-        }
-        
-        .testimonial-card::before {
-            content: """;
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 80px;
-            color: var(--accent-color);
-            opacity: 0.2;
-            font-family: Georgia, serif;
-        }
-        
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .testimonial-author {
-            font-weight: bold;
-            color: var(--dark-text);
-        }
-        
-        .testimonial-location {
-            font-size: 14px;
-            color: var(--accent-color);
-        }
-        
-        /* Contact Section */
-        .contact {
-            background-color: var(--secondary-color);
-        }
-        
-        .contact-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-        }
-        
-        .contact-info {
-            background-color: var(--dark-text);
-            color: white;
-            padding: 50px;
-        }
-        
-        .contact-info h3 {
-            color: white;
-            font-size: 24px;
-            margin-bottom: 30px;
-        }
-        
-        .contact-detail {
-            margin-bottom: 20px;
-            display: flex;
-            align-items: flex-start;
-        }
-        
-        .contact-detail span {
-            display: block;
-            margin-left: 15px;
-        }
-        
-        .contact-detail strong {
-            display: block;
-            margin-bottom: 5px;
-            color: var(--accent-color);
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .contact-form {
-            background-color: white;
-            padding: 50px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 500;
-            color: var(--dark-text);
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            font-size: 16px;
-            font-family: 'Montserrat', 'Arial', sans-serif;
-        }
-        
-        .form-group textarea {
-            height: 150px;
-            resize: vertical;
-        }
-        
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-color);
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--dark-text);
-            color: white;
-            padding: 80px 0 30px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 50px;
-            margin-bottom: 50px;
-        }
-        
-        .footer-col h3 {
-            color: white;
-            margin-bottom: 25px;
-            font-size: 18px;
-            letter-spacing: 1px;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .footer-col h3::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -8px;
-            width: 30px;
-            height: 2px;
-            background-color: var(--accent-color);
-        }
-        
-        .footer-col p {
-            margin-bottom: 20px;
-            font-size: 14px;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .footer-col ul {
-            list-style: none;
-        }
-        
-        .footer-col ul li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-col a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color 0.3s;
-            font-size: 14px;
-        }
-        
-        .footer-col a:hover {
-            color: var(--accent-color);
-        }
-        
-        .footer-logo {
-            display: block;
-            margin-bottom: 20px;
-        }
-        
-        .footer-logo img {
-            height: 70px;
-            background-color: white;
-            padding: 8px;
-            border-radius: 4px;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .social-links a {
-            display: inline-block;
-            height: 40px;
-            width: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            text-align: center;
-            line-height: 40px;
-            transition: background-color 0.3s;
-        }
-        
-        .social-links a:hover {
-            background-color: var(--accent-color);
-            color: var(--dark-text);
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            margin-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.5);
-        }
-        
-        /* Responsive */
-        @media (max-width: 992px) {
-            .about-content,
-            .contact-container,
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .about-img {
-                height: 400px;
-                margin-bottom: 30px;
-            }
-            
-            .contact-info,
-            .contact-form {
-                padding: 30px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 36px;
-            }
-            
-            .hero p {
-                font-size: 18px;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .language-switch {
-                margin-left: 0;
-                margin-top: 15px;
-            }
-            
-            .service-card,
-            .property-card,
-            .testimonial-card {
-                max-width: 400px;
-                margin: 0 auto;
-            }
-            
-            .properties-grid,
-            .services-grid,
-            .testimonial-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Added for the mobile menu */
-        .mobile-menu-btn {
-            display: none;
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .mobile-menu {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: var(--dark-text);
-                padding: 80px 30px 30px;
-                z-index: 200;
-                transform: translateX(-100%);
-                transition: transform 0.3s ease-in-out;
-            }
-
-            .mobile-menu.active {
-                transform: translateX(0);
-            }
-
-            .mobile-menu .nav-links {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .mobile-menu .nav-links li {
-                margin: 15px 0;
-            }
-
-            .mobile-menu .close-btn {
-                position: absolute;
-                top: 20px;
-                right: 20px;
-                background: transparent;
-                border: none;
-                color: white;
-                font-size: 24px;
-                cursor: pointer;
-            }
-
-            .mobile-menu .language-switch {
-                margin-top: 30px;
-                display: flex;
-                justify-content: center;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <nav>
-                <a href="#" class="logo">
-                    <img src="images/Screenshot 2025-02-26 233524.png" alt="Freyre Real Estate">
-                </a>
-                <ul class="nav-links">
-                    <li><a href="#inicio" class="nav-link" data-en="HOME" data-es="INICIO">HOME</a></li>
-                    <li><a href="#servicios" class="nav-link" data-en="SERVICES" data-es="SERVICIOS">SERVICES</a></li>
-                    <li><a href="#propiedades" class="nav-link" data-en="PROPERTIES" data-es="PROPIEDADES">PROPERTIES</a></li>
-                    <li><a href="#sobre-mi" class="nav-link" data-en="ABOUT" data-es="SOBRE NOSOTROS">ABOUT</a></li>
-                    <li><a href="#testimonios" class="nav-link" data-en="TESTIMONIALS" data-es="TESTIMONIOS">TESTIMONIALS</a></li>
-                    <li><a href="#contacto" class="nav-link" data-en="CONTACT" data-es="CONTACTO">CONTACT</a></li>
-                </ul>
-                <div class="language-switch">
-                    <button class="language-btn" id="languageBtn">
-                        <span class="language-icon">🌐</span>
-                        <span class="current-lang">EN</span>
-                    </button>
-                    <div class="language-options" id="languageOptions">
-                        <a href="#" data-lang="en">English</a>
-                        <a href="#" data-lang="es">Español</a>
-                    </div>
-                </div>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <button class="close-btn" id="closeMenuBtn">✕</button>
-        <ul class="nav-links">
-            <li><a href="#inicio" class="nav-link" data-en="HOME" data-es="INICIO">HOME</a></li>
-            <li><a href="#servicios" class="nav-link" data-en="SERVICES" data-es="SERVICIOS">SERVICES</a></li>
-            <li><a href="#propiedades" class="nav-link" data-en="PROPERTIES" data-es="PROPIEDADES">PROPERTIES</a></li>
-            <li><a href="#sobre-mi" class="nav-link" data-en="ABOUT" data-es="SOBRE NOSOTROS">ABOUT</a></li>
-            <li><a href="#testimonios" class="nav-link" data-en="TESTIMONIALS" data-es="TESTIMONIOS">TESTIMONIALS</a></li>
-            <li><a href="#contacto" class="nav-link" data-en="CONTACT" data-es="CONTACTO">CONTACT</a></li>
-        </ul>
-        <div class="language-switch">
-            <button class="language-btn" id="mobileLanguageBtn">
-                <span class="language-icon">🌐</span>
-                <span class="current-lang">EN</span>
-            </button>
-        </div>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="hero" id="inicio">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="translate" data-en="Exclusive Properties in Puerto Rico" data-es="Propiedades Exclusivas en Puerto Rico">Exclusive Properties in Puerto Rico</h1>
-                <p class="translate" data-en="Curated real estate solutions for the most discerning clients" data-es="Soluciones inmobiliarias seleccionadas para los clientes más exigentes">Curated real estate solutions for the most discerning clients</p>
-                <a href="#propiedades" class="btn translate" data-en="EXPLORE PROPERTIES" data-es="EXPLORAR PROPIEDADES">EXPLORE PROPERTIES</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services" id="servicios">
-        <div class="container">
-            <div class="section-title">
-                <p class="translate" data-en="Our Expertise" data-es="Nuestra Experiencia">Our Expertise</p>
-                <h2 class="translate" data-en="Professional Services" data-es="Servicios Profesionales">Professional Services</h2>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-img">
-                        <img src="/api/placeholder/400/250" alt="Property Sales">
-                    </div>
-                    <div class="service-content">
-                        <h3 class="translate" data-en="Property Sales" data-es="Venta de Propiedades">Property Sales</h3>
-                        <p class="translate" data-en="Expert guidance through the selling process, ensuring optimal market positioning and maximum value for your property with personalized marketing strategies." data-es="Orientación experta durante el proceso de venta, asegurando un posicionamiento óptimo en el mercado y un valor máximo para su propiedad con estrategias de marketing personalizadas.">Expert guidance through the selling process, ensuring optimal market positioning and maximum value for your property with personalized marketing strategies.</p>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-img">
-                        <img src="/api/placeholder/400/250" alt="Property Acquisition">
-                    </div>
-                    <div class="service-content">
-                        <h3 class="translate" data-en="Property Acquisition" data-es="Adquisición de Propiedades">Property Acquisition</h3>
-                        <p class="translate" data-en="Personalized property search and acquisition services tailored to your specific requirements, preferences, and investment goals in the Puerto Rico market." data-es="Servicios personalizados de búsqueda y adquisición de propiedades adaptados a sus requisitos específicos, preferencias y objetivos de inversión en el mercado de Puerto Rico.">Personalized property search and acquisition services tailored to your specific requirements, preferences, and investment goals in the Puerto Rico market.</p>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-img">
-                        <img src="/api/placeholder/400/250" alt="Investment Advisory">
-                    </div>
-                    <div class="service-content">
-                        <h3 class="translate" data-en="Investment Advisory" data-es="Asesoría de Inversiones">Investment Advisory</h3>
-                        <p class="translate" data-en="Comprehensive consultation for real estate investments, property valuation, market analysis, and strategic planning to optimize your portfolio performance." data-es="Consultoría integral para inversiones inmobiliarias, valoración de propiedades, análisis de mercado y planificación estratégica para optimizar el rendimiento de su cartera.">Comprehensive consultation for real estate investments, property valuation, market analysis, and strategic planning to optimize your portfolio performance.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Properties Section -->
-    <section class="properties" id="propiedades">
-        <div class="container">
-            <div class="section-title">
-                <p class="translate" data-en="Featured Listings" data-es="Propiedades Destacadas">Featured Listings</p>
-                <h2 class="translate" data-en="Exceptional Properties" data-es="Propiedades Excepcionales">Exceptional Properties</h2>
-            </div>
-            <div class="properties-grid">
-                <div class="property-card">
+<div class="property-card">
                     <div class="property-img">
-                        <img src="/api/placeholder/400/250" alt="Luxury Residence in San Juan">
-                        <div class="property-price">$1,450,000</div>
+                        <img src="/api/placeholder/400/250" alt="Luxury Apartment in Condado">
+                        <div class="property-price">$920,000</div>
                     </div>
                     <div class="property-content">
-                        <h3 class="translate" data-en="Oceanfront Villa" data-es="Villa Frente al Mar">Oceanfront Villa</h3>
-                        <div class="property-address">Dorado Beach, Puerto Rico</div>
-                        <p class="translate" data-en="Magnificent oceanfront villa featuring panoramic views, private beach access, and exquisite architectural details throughout." data-es="Magnífica villa frente al mar con vistas panorámicas, acceso privado a la playa y exquisitos detalles arquitectónicos.">Magnificent oceanfront villa featuring panoramic views, private beach access, and exquisite architectural details throughout.</p>
+                        <h3 class="translate" data-en="Luxury Penthouse" data-es="Penthouse de Lujo">Luxury Penthouse</h3>
+                        <div class="property-address">Condado, San Juan</div>
+                        <p class="translate" data-en="Contemporary penthouse apartment offering spectacular city and ocean views, premium finishes, and access to exclusive amenities." data-es="Apartamento penthouse contemporáneo que ofrece espectaculares vistas a la ciudad y al océano, acabados premium y acceso a servicios exclusivos.">Contemporary penthouse apartment offering spectacular city and ocean views, premium finishes, and access to exclusive amenities.</p>
                         <div class="property-details">
-                            <span class="translate" data-en="4 Bedrooms" data-es="4 Habitaciones">4 Bedrooms</span>
-                            <span class="translate" data-en="3 Bathrooms" data-es="3 Baños">3 Bathrooms</span>
-                            <span>350 m²</span>
+                            <span class="translate" data-en="2 Bedrooms" data-es="2 Habitaciones">2 Bedrooms</span>
+                            <span class="translate" data-en="2 Bathrooms" data-es="2 Baños">2 Bathrooms</span>
+                            <span>180 m²</span>
                         </div>
                     </div>
                 </div>
                 <div class="property-card">
                     <div class="property-img">
-                        <img src="/api/placeholder/400/250" alt="Luxury Apartment in Condado">
-                        <div class="property-price">$920
+                        <img src="/api/placeholder/400/250" alt="Historical Estate in Old San Juan">
+                        <div class="property-price">$1,850,000</div>
+                    </div>
+                    <div class="property-content">
+                        <h3 class="translate" data-en="Historical Estate" data-es="Residencia Histórica">Historical Estate</h3>
+                        <div class="property-address">Old San Juan</div>
+                        <p class="translate" data-en="Meticulously restored historical property combining authentic colonial architecture with modern luxury amenities in the heart of Old San Juan." data-es="Propiedad histórica meticulosamente restaurada que combina arquitectura colonial auténtica con comodidades modernas de lujo en el corazón del Viejo San Juan.">Meticulously restored historical property combining authentic colonial architecture with modern luxury amenities in the heart of Old San Juan.</p>
+                        <div class="property-details">
+                            <span class="translate" data-en="5 Bedrooms" data-es="5 Habitaciones">5 Bedrooms</span>
+                            <span class="translate" data-en="4 Bathrooms" data-es="4 Baños">4 Bathrooms</span>
+                            <span>420 m²</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="sobre-mi">
+        <div class="container">
+            <div class="section-title">
+                <p class="translate" data-en="Our Expertise" data-es="Nuestra Experiencia">Our Expertise</p>
+                <h2 class="translate" data-en="About Freyre Real Estate" data-es="Sobre Freyre Real Estate">About Freyre Real Estate</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="/api/placeholder/500/500" alt="Real Estate Professional">
+                </div>
+                <div class="about-text">
+                    <h3 class="translate" data-en="A Legacy of Excellence in Puerto Rico Real Estate" data-es="Un Legado de Excelencia en Bienes Raíces en Puerto Rico">A Legacy of Excellence in Puerto Rico Real Estate</h3>
+                    <p class="translate" data-en="At Freyre Real Estate, we provide exceptional service to clients seeking the finest properties in Puerto Rico. Our intimate knowledge of the local market combined with our commitment to discretion and personalized service has established our reputation as a trusted advisor in luxury real estate." data-es="En Freyre Real Estate, brindamos un servicio excepcional a clientes que buscan las mejores propiedades en Puerto Rico. Nuestro profundo conocimiento del mercado local combinado con nuestro compromiso con la discreción y el servicio personalizado ha establecido nuestra reputación como asesor de confianza en bienes raíces de lujo.">At Freyre Real Estate, we provide exceptional service to clients seeking the finest properties in Puerto Rico. Our intimate knowledge of the local market combined with our commitment to discretion and personalized service has established our reputation as a trusted advisor in luxury real estate.</p>
+                    <p class="translate" data-en="We specialize in connecting discerning clients with extraordinary properties that meet their unique lifestyle needs and investment goals. Our expertise encompasses the most exclusive neighborhoods and developments across Puerto Rico." data-es="Nos especializamos en conectar a clientes exigentes con propiedades extraordinarias que satisfagan sus necesidades particulares de estilo de vida y objetivos de inversión. Nuestra experiencia abarca los vecindarios y desarrollos más exclusivos de Puerto Rico.">We specialize in connecting discerning clients with extraordinary properties that meet their unique lifestyle needs and investment goals. Our expertise encompasses the most exclusive neighborhoods and developments across Puerto Rico.</p>
+                    <p class="translate" data-en="As active members of the Puerto Rico Association of Realtors and other prestigious real estate organizations, we maintain the highest standards of professional conduct and stay at the forefront of market trends and regulations." data-es="Como miembros activos de la Asociación de Realtors de Puerto Rico y otras prestigiosas organizaciones inmobiliarias, mantenemos los más altos estándares de conducta profesional y nos mantenemos a la vanguardia de las tendencias y regulaciones del mercado.">As active members of the Puerto Rico Association of Realtors and other prestigious real estate organizations, we maintain the highest standards of professional conduct and stay at the forefront of market trends and regulations.</p>
+                    <div class="credentials">
+                        <div class="credential-item">
+                            <img src="/api/placeholder/80/80" alt="Realtor Association">
+                            <span class="translate" data-en="Puerto Rico<br>Association of Realtors" data-es="Asociación de<br>Realtors de Puerto Rico">Puerto Rico<br>Association of Realtors</span>
+                        </div>
+                        <div class="credential-item">
+                            <img src="/api/placeholder/80/80" alt="Luxury Real Estate">
+                            <span class="translate" data-en="Certified Luxury<br>Home Specialist" data-es="Especialista Certificado<br>en Casas de Lujo">Certified Luxury<br>Home Specialist</span>
+                        </div>
+                        <div class="credential-item">
+                            <img src="/api/placeholder/80/80" alt="International Real Estate">
+                            <span class="translate" data-en="International<br>Property Specialist" data-es="Especialista en<br>Propiedades Internacionales">International<br>Property Specialist</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonios">
+        <div class="container">
+            <div class="section-title">
+                <p class="translate" data-en="Client Experiences" data-es="Experiencias de Clientes">Client Experiences</p>
+                <h2 class="translate" data-en="Testimonials" data-es="Testimonios">Testimonials</h2>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        <p class="translate" data-en="Working with Freyre Real Estate was an exceptional experience. Their attention to detail and understanding of our specific requirements resulted in finding the perfect property. Their negotiation skills and market knowledge proved invaluable throughout the entire process." data-es="Trabajar con Freyre Real Estate fue una experiencia excepcional. Su atención al detalle y comprensión de nuestros requisitos específicos resultó en encontrar la propiedad perfecta. Sus habilidades de negociación y conocimiento del mercado resultaron invaluables durante todo el proceso.">"Working with Freyre Real Estate was an exceptional experience. Their attention to detail and understanding of our specific requirements resulted in finding the perfect property. Their negotiation skills and market knowledge proved invaluable throughout the entire process."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <p>María Rodríguez</p>
+                    </div>
+                    <div class="testimonial-location">
+                        <p>San Juan, Puerto Rico</p>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        <p class="translate" data-en="The marketing strategy developed for my property sale was sophisticated and targeted precisely the right audience. The result was a sale that exceeded my expectations in both timing and price. Their professionalism and communication throughout the process were impeccable." data-es="La estrategia de marketing desarrollada para la venta de mi propiedad fue sofisticada y se dirigió precisamente al público adecuado. El resultado fue una venta que superó mis expectativas tanto en tiempo como en precio. Su profesionalismo y comunicación durante todo el proceso fueron impecables.">"The marketing strategy developed for my property sale was sophisticated and targeted precisely the right audience. The result was a sale that exceeded my expectations in both timing and price. Their professionalism and communication throughout the process were impeccable."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <p>Carlos Méndez</p>
+                    </div>
+                    <div class="testimonial-location">
+                        <p>Bayamón, Puerto Rico</p>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        <p class="translate" data-en="As an international investor, I required a trustworthy local expert with deep knowledge of the Puerto Rico market. Their insights and guidance were instrumental in making a successful investment. Their attention to my requirements and transparent communication made the entire process seamless." data-es="Como inversor internacional, necesitaba un experto local confiable con un profundo conocimiento del mercado de Puerto Rico. Sus ideas y orientación fueron fundamentales para realizar una inversión exitosa. Su atención a mis requisitos y comunicación transparente hizo que todo el proceso fuera perfecto.">"As an international investor, I required a trustworthy local expert with deep knowledge of the Puerto Rico market. Their insights and guidance were instrumental in making a successful investment. Their attention to my requirements and transparent communication made the entire process seamless."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <p>John Smith</p>
+                    </div>
+                    <div class="testimonial-location">
+                        <p>Miami, Florida</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contacto">
+        <div class="container">
+            <div class="section-title">
+                <p class="translate" data-en="Get in Touch" data-es="Póngase en Contacto">Get in Touch</p>
+                <h2 class="translate" data-en="Contact Us" data-es="Contáctenos">Contact Us</h2>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3 class="translate" data-en="Our Information" data-es="Nuestra Información">Our Information</h3>
+                    <div class="contact-detail">
+                        <i class="icon">📍</i>
+                        <span>
+                            <strong class="translate" data-en="Address" data-es="Dirección">Address</strong>
+                            <span class="translate" data-en="Calle Principal #123, San Juan, Puerto Rico" data-es="Calle Principal #123, San Juan, Puerto Rico">Calle Principal #123, San Juan, Puerto Rico</span>
+                        </span>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="icon">📞</i>
+                        <span>
+                            <strong class="translate" data-en="Phone" data-es="Teléfono">Phone</strong>
+                            (123) 456-7890
+                        </span>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="icon">✉️</i>
+                        <span>
+                            <strong class="translate" data-en="Email" data-es="Correo Electrónico">Email</strong>
+                            info@freyrerealestate.com
+                        </span>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="icon">🕒</i>
+                        <span>
+                            <strong class="translate" data-en="Office Hours" data-es="Horario de Oficina">Office Hours</strong>
+                            <span class="translate" data-en="Monday - Friday: 9AM - 6PM<br>Saturday: 10AM - 2PM" data-es="Lunes - Viernes: 9AM - 6PM<br>Sábado: 10AM - 2PM">Monday - Friday: 9AM - 6PM<br>Saturday: 10AM - 2PM</span>
+                        </span>
+                    </div>
+                </div>
+                <form class="contact-form" netlify>
+                    <div class="form-group">
+                        <label for="name" class="translate" data-en="Full Name" data-es="Nombre Completo">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="translate" data-en="Email Address" data-es="Correo Electrónico">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="translate" data-en="Phone Number" data-es="Número de Teléfono">Phone Number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="interest" class="translate" data-en="Area of Interest" data-es="Área de Interés">Area of Interest</label>
+                        <input type="text" id="interest" name="interest" placeholder="E.g., Property Purchase, Sale, Investment">
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="translate" data-en="Your Message" data-es="Su Mensaje">Your Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-accent translate" data-en="SEND MESSAGE" data-es="ENVIAR MENSAJE">SEND MESSAGE</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <a href="#" class="footer-logo">
+                        <img src="images/Screenshot 2025-02-26 233524.png" alt="Freyre Real Estate">
+                    </a>
+                    <p class="translate" data-en="Your trusted partner for all your real estate needs in Puerto Rico. We specialize in luxury properties and personalized service for discerning clients." data-es="Su socio de confianza para todas sus necesidades inmobiliarias en Puerto Rico. Nos especializamos en propiedades de lujo y servicio personalizado para clientes exigentes.">Your trusted partner for all your real estate needs in Puerto Rico. We specialize in luxury properties and personalized service for discerning clients.</p>
+                    <div class="social-links">
+                        <a href="#" target="_blank">FB</a>
+                        <a href="#" target="_blank">IG</a>
+                        <a href="#" target="_blank">LI</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3 class="translate" data-en="Quick Links" data-es="Enlaces Rápidos">Quick Links</h3>
+                    <ul>
+                        <li><a href="#inicio" class="translate" data-en="Home" data-es="Inicio">Home</a></li>
+                        <li><a href="#servicios" class="translate" data-en="Services" data-es="Servicios">Services</a></li>
+                        <li><a href="#propiedades" class="translate" data-en="Properties" data-es="Propiedades">Properties</a></li>
+                        <li><a href="#sobre-mi" class="translate" data-en="About" data-es="Sobre Nosotros">About</a></li>
+                        <li><a href="#testimonios" class="translate" data-en="Testimonials" data-es="Testimonios">Testimonials</a></li>
+                        <li><a href="#contacto" class="translate" data-en="Contact" data-es="Contacto">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3 class="translate" data-en="Contact" data-es="Contacto">Contact</h3>
+                    <ul>
+                        <li class="translate" data-en="Phone: (123) 456-7890" data-es="Teléfono: (123) 456-7890">Phone: (123) 456-7890</li>
+                        <li class="translate" data-en="Email: info@freyrerealestate.com" data-es="Correo: info@freyrerealestate.com">Email: info@freyrerealestate.com</li>
+                        <li class="translate" data-en="Address: Calle Principal #123, San Juan, Puerto Rico" data-es="Dirección: Calle Principal #123, San Juan, Puerto Rico">Address: Calle Principal #123, San Juan, Puerto Rico</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p class="translate" data-en="&copy; 2025 Freyre Real Estate. All rights reserved." data-es="&copy; 2025 Freyre Real Estate. Todos los derechos reservados.">&copy; 2025 Freyre Real Estate. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for language switching -->
+    <script>
+        // Language switcher functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all elements
+            const languageBtn = document.getElementById('languageBtn');
+            const mobileLanguageBtn = document.getElementById('mobileLanguageBtn');
+            const languageOptions = document.getElementById('languageOptions');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const closeMenuBtn = document.getElementById('closeMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const currentLangElems = document.querySelectorAll('.current-lang');
+            const translateElements = document.querySelectorAll('.translate');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            // Default language
+            let currentLang = 'en';
+            
+            // Toggle language options menu
+            languageBtn.addEventListener('click', function() {
+                languageOptions.classList.toggle('show');
+            });
+            
+            // Close language menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.language-switch')) {
+                    languageOptions.classList.remove('show');
+                }
+            });
+            
+            // Handle language selection
+            const languageLinks = document.querySelectorAll('.language-options a');
+            languageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const lang = this.getAttribute('data-lang');
+                    setLanguage(lang);
+                    languageOptions.classList.remove('show');
+                });
+            });
+            
+            // Mobile menu toggle
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.add('active');
+            });
+            
+            closeMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+            });
+            
+            // Mobile language button
+            mobileLanguageBtn.addEventListener('click', function() {
+                // Toggle between languages
+                const newLang = currentLang === 'en' ? 'es' : 'en';
+                setLanguage(newLang);
+            });
+            
+            // Function to set the language
+            function setLanguage(lang) {
+                currentLang = lang;
+                
+                // Update current language display
+                currentLangElems.forEach(el => {
+                    el.textContent = lang.toUpperCase();
+                });
+                
+                // Update all translatable elements
+                translateElements.forEach(el => {
+                    if (el.getAttribute(`data-${lang}`)) {
+                        el.textContent = el.getAttribute(`data-${lang}`);
+                    }
+                });
+                
+                // Update navigation links
+                navLinks.forEach(link => {
+                    if (link.getAttribute(`data-${lang}`)) {
+                        link.textContent = link.getAttribute(`data-${lang}`);
+                    }
+                });
+                
+                // Save language preference
+                localStorage.setItem('preferredLanguage', lang);
+            }
+            
+            // Check if user has a saved language preference
+            const savedLang = localStorage.getItem('preferredLanguage');
+            if (savedLang) {
+                setLanguage(savedLang);
+            }
+        });
+    </script>
+</body>
+</html>
